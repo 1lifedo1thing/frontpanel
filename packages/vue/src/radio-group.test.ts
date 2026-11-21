@@ -1,4 +1,4 @@
-import type { VueWrapper } from '@vue/test-utils'
+import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import type { FpKeyOption } from './keys'
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -40,6 +40,11 @@ function textOf(wrapper: VueWrapper, id: string | undefined) {
   return id ? wrapper.find(`[id="${id}"]`).text() : undefined
 }
 
+// A key's accessible name: what aria-labelledby points at wins over aria-label.
+function accessibleName(wrapper: VueWrapper, key: DOMWrapper<Element>) {
+  return textOf(wrapper, key.attributes('aria-labelledby')) ?? key.attributes('aria-label')
+}
+
 describe('fpRadioGroup', () => {
   it('is a row of piano keys, each under its silkscreen label', () => {
     const wrapper = sourceGroup()
@@ -60,6 +65,18 @@ describe('fpRadioGroup', () => {
   it('names each key by its label', () => {
     const wrapper = sourceGroup()
     expect(keys(wrapper).map(key => textOf(wrapper, key.attributes('aria-labelledby')))).toEqual(['CD', 'Tape', 'Aux', 'Line'])
+  })
+
+  it('can give a key a spoken name in full under a short printed label', () => {
+    const tunings: FpKeyOption[] = [
+      { value: 'standard', label: 'STD', ariaLabel: 'Standard (EADGBE)' },
+      { value: 'drop-d', label: 'Drop D' },
+    ]
+    const wrapper = sourceGroup({ options: tunings, modelValue: 'standard' })
+    expect(wrapper.findAll('.fp-silk').map(silk => silk.text())).toEqual(['STD', 'Drop D'])
+    expect(keys(wrapper).map(key => accessibleName(wrapper, key))).toEqual(['Standard (EADGBE)', 'Drop D'])
+    // The short label isn't read out beside the key as well.
+    expect(wrapper.findAll('.fp-silk').map(silk => silk.attributes('aria-hidden'))).toEqual(['true', undefined])
   })
 
   it('latches the chosen key', () => {

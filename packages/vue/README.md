@@ -87,6 +87,9 @@ Element components take Reka's `as` and `asChild`.
   `FpIcon` inside it decorative.
 - **`pressed` makes a toggle.** On `FpButton` and `FpCap` it sets `aria-pressed` and holds the
   control down; leave it unset for an ordinary button, which then gets no `aria-pressed`.
+- **A short key label can have a full spoken name.** The options of `FpRadioGroup` and
+  `FpCheckboxGroup` are named by their printed `label`; where that is an abbreviation, add an
+  `ariaLabel` (`STD` printed, `Standard (EADGBE)` spoken).
 - **Closing an `FpWindow` removes the focused close button.** Move focus back to the control
   that opened the window.
 - **`FpSilk` is a span.** Render it as a heading or `label` (`as="h3"`, `as="label"`) where it

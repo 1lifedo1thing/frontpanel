@@ -3,8 +3,14 @@ import type { FpLedColor } from './FpLed.vue'
 /** One key in an FpRadioGroup or FpCheckboxGroup. */
 export interface FpKeyOption {
   value: string
-  /** Its silkscreen label, printed over the key, which also names it. */
+  /** Its silkscreen label, printed over the key, which also names it unless `ariaLabel` is set. */
   label: string
+  /**
+   * The name a screen reader says for the key, where the printed label is short: `STD` printed,
+   * `Standard (EADGBE)` spoken. Start it with the printed words where you can, so people who
+   * press keys by saying their labels can still reach it.
+   */
+  ariaLabel?: string
   disabled?: boolean
   /** The colour its LED lights in. Unset, it takes the group's colour. */
   color?: FpLedColor

@@ -1,5 +1,16 @@
 # @frontpanel/vue
 
+## 0.6.0
+
+### Minor Changes
+
+- 86d80b8: A piano key can have a spoken name apart from its printed label. An option of `FpRadioGroup` or `FpCheckboxGroup` takes `ariaLabel`, which names the key for screen readers while its short `label` stays printed over it: `STD` printed, `Standard (EADGBE)` spoken. Without it, the printed label names the key, as before.
+
+### Patch Changes
+
+- 4aa25ea: `FpRadioGroup` moves along the row on all four arrow keys, as a radio group should: Right and Down move on, Left and Up move back, whether the keys stand side by side or are stacked. Before, a row took only Left and Right and a stack only Up and Down. Right to left, the left arrow moves on.
+- 4aa25ea: `FpRadioGroup` latches the key an arrow moves to every time. Reka latched it only if the arrow was still held when a timer ran, so a quick tap, or a page busy with the last change, could move focus and leave the latch behind. The group now takes the arrows itself and presses the key it moves to, still wrapping at the ends and skipping disabled keys.
+
 ## 0.5.0
 
 ### Minor Changes

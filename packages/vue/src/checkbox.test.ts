@@ -145,6 +145,20 @@ describe('fpCheckboxGroup', () => {
     expect(keys(wrapper).map(key => key.attributes('aria-checked'))).toEqual(['false', 'false', 'true', 'false'])
   })
 
+  it('can give a key a spoken name in full under a short printed label', () => {
+    const filters: FpKeyOption[] = [
+      { value: 'lowcut', label: 'LC', ariaLabel: 'Low cut (80 Hz)' },
+      { value: 'pad', label: 'Pad' },
+    ]
+    const wrapper = inputGroup({ options: filters })
+    expect(wrapper.findAll('.fp-silk').map(silk => silk.text())).toEqual(['LC', 'Pad'])
+    // What aria-labelledby points at wins over aria-label.
+    const names = keys(wrapper).map(key => textOf(wrapper, key.attributes('aria-labelledby')) ?? key.attributes('aria-label'))
+    expect(names).toEqual(['Low cut (80 Hz)', 'Pad'])
+    // The short label isn't read out beside the key as well.
+    expect(wrapper.findAll('.fp-silk').map(silk => silk.attributes('aria-hidden'))).toEqual(['true', undefined])
+  })
+
   it('keeps every key a stop for Tab, as checkboxes are', () => {
     const wrapper = inputGroup()
     expect(keys(wrapper).slice(0, 3).map(key => key.attributes('tabindex'))).not.toContain('-1')

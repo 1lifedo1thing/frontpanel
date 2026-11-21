@@ -58,7 +58,7 @@ const tape = ref('chrome')
 const bands = [
   { value: 'fm', label: 'FM' },
   { value: 'am', label: 'AM' },
-  { value: 'sw', label: 'SW' },
+  { value: 'sw', label: 'SW', ariaLabel: 'SW, shortwave' },
 ]
 const band = ref('fm')
 const speeds = [
@@ -298,13 +298,14 @@ or an LED, as the readout here does.
 ## FpRadioGroup
 
 A row of latching piano keys, after the key row on an old cassette deck: press a key and it latches
-down as the last one comes up, and the arrow keys move the latch along the row. Each option is
-`{ value, label, disabled?, color? }`; its `label` is printed over its key and names it, and `label`
-on the group goes under the well and names the group. The strip at each key's foot is an LED that
-lights while the key is latched, green unless `color`, or an option's own `color`, says otherwise.
-`led="above"` puts an LED over each label instead, and `led="none"` leaves the strips as plain
-plastic, so the latch alone shows the choice. `orientation="vertical"` lays the keys on their side,
-stacked, each label before its key.
+down as the last one comes up, and the arrow keys move the latch along the row, all four of them
+whichever way the keys stand. Each option is `{ value, label, ariaLabel?, disabled?, color? }`; its
+`label` is printed over its key and names it, unless `ariaLabel` gives the key a fuller spoken name
+(`SW` printed, `SW, shortwave` spoken), and `label` on the group goes under the well and names the
+group. The strip at each key's foot is an LED that lights while the key is latched, green unless
+`color`, or an option's own `color`, says otherwise. `led="above"` puts an LED over each label
+instead, and `led="none"` leaves the strips as plain plastic, so the latch alone shows the choice.
+`orientation="vertical"` lays the keys on their side, stacked, each label before its key.
 
 <div class="vp-raw demo demo-surface demo-row">
   <div class="fp-module demo-row demo-module">

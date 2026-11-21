@@ -23,8 +23,9 @@ interface Fixture {
   disabledRules?: ScanOptions['disabledRules']
 }
 
+// One key has a spoken name under its short printed label.
 const sources: kit.FpKeyOption[] = [
-  { value: 'cd', label: 'CD' },
+  { value: 'cd', label: 'CD', ariaLabel: 'CD player' },
   { value: 'tape', label: 'Tape' },
   { value: 'aux', label: 'Aux', color: 'amber' },
   { value: 'line', label: 'Line', disabled: true },

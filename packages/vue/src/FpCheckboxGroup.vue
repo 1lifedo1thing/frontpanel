@@ -58,7 +58,7 @@ const groupAttrs = computed(() => {
       :aria-labelledby="props.label ? labelId : undefined"
     >
       <template v-for="(option, index) in props.options" :key="option.value">
-        <span :id="keyLabelId(index)" class="fp-silk">
+        <span :id="keyLabelId(index)" class="fp-silk" :aria-hidden="option.ariaLabel ? 'true' : undefined">
           <span
             v-if="props.led === 'above'"
             class="fp-led"
@@ -72,7 +72,8 @@ const groupAttrs = computed(() => {
           class="fp-key"
           :class="props.led === 'strip' ? colorOf(option) : undefined"
           :data-strip="props.led === 'strip' ? undefined : 'plain'"
-          :aria-labelledby="keyLabelId(index)"
+          :aria-label="option.ariaLabel"
+          :aria-labelledby="option.ariaLabel ? undefined : keyLabelId(index)"
         />
       </template>
     </CheckboxGroupRoot>

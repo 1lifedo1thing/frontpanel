@@ -36,6 +36,9 @@ your markup. What the kit guarantees:
 
 - **`pressed` makes a toggle.** Leave it unset for an ordinary button, which then gets no
   `aria-pressed`.
+- **A short key label can have a full spoken name.** A piano key's printed `label` names it; where
+  that is an abbreviation, give the option an `ariaLabel` (`STD` printed, `Standard (EADGBE)`
+  spoken). Start it with the printed words where you can, for people who press keys by saying them.
 - **Return focus when a window closes.** Closing an `FpWindow` removes its focused close button;
   move focus back to the control that opened it.
 - **Name things with real elements.** `FpSilk` is a span: render it as a heading or `label`
